@@ -42,8 +42,8 @@ def main():
     # run_test_init()
     # run_test_append_string()
     # run_test_double()
-    run_test_shrink()
-#     run_test_double_then_shrink()
+    # run_test_shrink()
+    run_test_double_then_shrink()
 #     run_test_reset()
 #     run_test_steal()
 #     run_test_get_history()
@@ -259,7 +259,7 @@ class Box(object):
           :type new_volume: int
         """
         # --------------------------------------------------------------
-        # TODO: 5. Implement and test this function.
+        # DONE: 5. Implement and test this function.
         #     The testing code is already written for you (above).
         # --------------------------------------------------------------
         # --------------------------------------------------------------
@@ -325,7 +325,7 @@ class Box(object):
           :type new_volume: int
         """
         # --------------------------------------------------------------
-        # TODO: 6. Implement and test this function.
+        # DONE: 6. Implement and test this function.
         #     The testing code is already written for you (above).
         # --------------------------------------------------------------
         # --------------------------------------------------------------
@@ -333,6 +333,9 @@ class Box(object):
         #    DIFFICULTY:      5
         #    TIME ESTIMATE:   5 minutes.
         # --------------------------------------------------------------
+        discarded_letters_from_double = self.double()
+        discarded_letters_from_volume_change = self.shrink(new_volume)
+        return len(discarded_letters_from_double) + len(discarded_letters_from_volume_change)
 
     def reset(self):
         """
