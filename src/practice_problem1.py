@@ -40,9 +40,9 @@ def main():
     ####################################################################
 
     # run_test_init()
-    run_test_append_string()
-#     run_test_double()
-#     run_test_shrink()
+    # run_test_append_string()
+    # run_test_double()
+    run_test_shrink()
 #     run_test_double_then_shrink()
 #     run_test_reset()
 #     run_test_steal()
@@ -139,27 +139,10 @@ class Box(object):
         Type hints:
           :type additional_contents: str
         """
-        if len(self.contents) + len(additional_contents) <= self.volume:
-            self.contents = self.contents + additional_contents
-            return ''
-
-        else:
-            num_leftover_contents = (len(self.contents) + len(additional_contents)) - self.volume
-            num_included_contents = len(additional_contents) - num_leftover_contents
-            for k in range(num_included_contents):
-                self.contents = self.contents + additional_contents[k]
-
-            leftover_contents = ''
-            for k in range(num_leftover_contents):
-                leftover_contents = leftover_contents + additional_contents[num_included_contents + k]
-            return leftover_contents
-
-
         # --------------------------------------------------------------
-        # TODO: 3. Implement and test this function.
+        # DONE: 3. Implement and test this function.
         #     See the testing code (below) for more examples.
-        # --------------------------------------------------------------
-        # --------------------------------------------------------------
+
         # DIFFICULTY AND TIME RATINGS (see top of this file for explanation)
         #    DIFFICULTY:      10
         #    TIME ESTIMATE:   20 - 30 minutes.
@@ -177,13 +160,27 @@ class Box(object):
         #       Read_this_ONLY_when_asked_Part_2.txt
         #    and continue working on the problem.
         # --------------------------------------------------------------
+        if len(self.contents) + len(additional_contents) <= self.volume:
+            self.contents = self.contents + additional_contents
+            return ''
+
+        else:
+            num_leftover_contents = (len(self.contents) + len(additional_contents)) - self.volume
+            num_included_contents = len(additional_contents) - num_leftover_contents
+            for k in range(num_included_contents):
+                self.contents = self.contents + additional_contents[k]
+
+            leftover_contents = ''
+            for k in range(num_leftover_contents):
+                leftover_contents = leftover_contents + additional_contents[num_included_contents + k]
+            return leftover_contents
 
     def double(self):
         """
         What comes in:
           -- self
         What goes out:
-          Returrns a string that is whatever substring of the
+          Returns a string that is whatever substring of the
           doubled contents did not fit in this Box
           (or the empty string if the entire doubled contents fit)
         Side effects:
@@ -212,7 +209,7 @@ class Box(object):
           #                       contents that did NOT fit]
         """
         # --------------------------------------------------------------
-        # TODO: 4. Implement and test this function.
+        # DONE: 4. Implement and test this function.
         #     The testing code is already written for you (above).
         # --------------------------------------------------------------
         # --------------------------------------------------------------
@@ -224,6 +221,7 @@ class Box(object):
         # FOR FULL CREDIT, YOUR SOLUTION MUST BE NO MORE THAN
         #    ** TWO **   LINES OF CODE.
         ################################################################
+        return self.append_string(self.contents)
 
     def shrink(self, new_volume):
         """
@@ -272,6 +270,16 @@ class Box(object):
         # IMPORTANT: Write a solution to this problem in pseudo-code,
         # and THEN translate the pseudo-code to a solution.
         # --------------------------------------------------------------
+        new_contents = ''
+        contents_to_discard = ''
+        if new_volume < len(self.contents):
+            for k in range(new_volume):
+                new_contents = new_contents + self.contents[k]
+            for k in range(len(self.contents) - new_volume):
+                contents_to_discard = contents_to_discard + self.contents[k + new_volume]
+            self.contents = new_contents
+        self.volume = new_volume
+        return contents_to_discard
 
     def double_then_shrink(self, new_volume):
         """
