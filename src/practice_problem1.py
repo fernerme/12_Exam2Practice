@@ -139,6 +139,22 @@ class Box(object):
         Type hints:
           :type additional_contents: str
         """
+        if len(self.contents) + len(additional_contents) <= self.volume:
+            self.contents = self.contents + additional_contents
+            return ''
+
+        else:
+            num_leftover_contents = (len(self.contents) + len(additional_contents)) - self.volume
+            num_included_contents = len(additional_contents) - num_leftover_contents
+            for k in range(num_included_contents):
+                self.contents = self.contents + additional_contents[k]
+
+            leftover_contents = ''
+            for k in range(num_leftover_contents):
+                leftover_contents = leftover_contents + additional_contents[num_included_contents + k]
+            return leftover_contents
+
+
         # --------------------------------------------------------------
         # TODO: 3. Implement and test this function.
         #     See the testing code (below) for more examples.
