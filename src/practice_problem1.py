@@ -107,8 +107,10 @@ class Box(object):
             self.contents = ''
         else:
             self.contents = contents
+
         self.original_volume = self.volume
         self.original_contents = self.contents
+        self.reset_history = []
 
     def append_string(self, additional_contents):
         """
@@ -357,6 +359,7 @@ class Box(object):
         #    DIFFICULTY:      4
         #    TIME ESTIMATE:   5 minutes.
         # --------------------------------------------------------------
+        self.reset_history = self.reset_history + [self.contents]
         self.contents = self.original_contents
         self.volume = self.original_volume
 
